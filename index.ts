@@ -29,6 +29,7 @@ app.use(
   '/graphql',
   graphqlHTTP({
     schema: schema,
+    context: null, // Call a middleware to parse token and get user info
     graphiql: true
   })
 );
