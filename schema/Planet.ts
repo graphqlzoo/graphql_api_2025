@@ -1,6 +1,5 @@
 import { GraphQLEnumType, GraphQLObjectType } from "graphql";
 import { GraphQLID, GraphQLString } from "graphql/type/scalars";
-import { hoth } from '../../03-null-vs-non-null/database/fake';
 
 const climateEnum = new GraphQLEnumType({
   name: "Climate",

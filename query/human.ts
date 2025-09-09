@@ -1,5 +1,5 @@
 import { GraphQLFieldConfigMap, GraphQLList } from "graphql";
-import { humanType } from "../schema/Human";
+import { humanType } from "../schema/Animal";
 import { spaceshipType } from "../schema/Spaceship";
 
 export const humanFields: GraphQLFieldConfigMap<any, any> = {
