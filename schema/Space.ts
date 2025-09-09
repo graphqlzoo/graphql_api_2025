@@ -29,7 +29,7 @@ export const spaceType = new GraphQLObjectType({
     types : { type : new GraphQLList(spaceTypeEnum) },
     openHours : { type: GraphQLString },
     closeHours : { type: GraphQLString },
-    disabled: { type: GraphQLNonNull(GraphQLBoolean) },
+    disabled: { type: GraphQLBoolean },
     createdAt : { type: GraphQLString },
     updatedAt : { type: GraphQLString },
   }
