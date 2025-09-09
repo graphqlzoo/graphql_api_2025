@@ -1,4 +1,4 @@
-import { GraphQLObjectType, GraphQLScalarType } from "graphql";
+import { GraphQLList, GraphQLObjectType, GraphQLScalarType } from "graphql";
 import { GraphQLID, GraphQLString } from "graphql/type/scalars";
 
 export const speciesType = new GraphQLObjectType({
@@ -14,21 +14,7 @@ export const speciesType = new GraphQLObjectType({
       type: GraphQLString,
     },
     images : {
-      type: new GraphQLScalarType({
-        name: 'Images',
-        serialize(value) {
-          return value;
-        },
-        parseValue(value) {
-          return value;
-        },
-        parseLiteral(ast) {
-          if (ast.kind === 'StringValue') {
-            return ast.value;
-          }
-          return null;
-        },
-      }),
+      type : new GraphQLList(GraphQLString),
     },
     createdAt : {
       type: GraphQLString,
