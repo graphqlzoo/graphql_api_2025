@@ -5,21 +5,27 @@ import {
   GraphQLSchema,
   printSchema,
 } from 'graphql';
-import { humanFields } from './query/human';
-import { wookieesFields } from './query/wookiees';
-import { planetFields } from './query/planet';
-import { filmFields } from './query/film';
+import { userFields } from './query/user';
+import { MongooseService } from './services/mongoose/mongoose.service';
 
 const rootQuery = new GraphQLObjectType({
   name: "Query",
   fields: {
-    ...wookieesFields,
-    ...humanFields,
-    ...planetFields,
-    ...filmFields,
+    ...userFields,
   }
 });
 
+
+(async () => {
+  const mongoose = await MongooseService.getInstance();
+  mongoose.userService.createUser({
+    firstName: 'John',
+    lastName: 'Doe',
+    login: 'johndoe',
+    password: 'password123',
+    email: 'a@a.com',
+  })
+})();
 export const schema = new GraphQLSchema({ query: rootQuery });
 console.log('Dumping GraphQL schema :\n');
 console.log(printSchema(schema));
