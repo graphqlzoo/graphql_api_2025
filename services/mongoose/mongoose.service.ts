@@ -1,5 +1,8 @@
 import {Mongoose, connect} from "mongoose";
 import {UserService} from "./user.service";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export class MongooseService {
 

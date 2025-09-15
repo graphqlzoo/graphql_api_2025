@@ -7,6 +7,11 @@ import {
 } from 'graphql';
 import { userFields } from './query/user';
 import { MongooseService } from './services/mongoose/mongoose.service';
+import cors from 'cors';
+
+(async () => {
+  await MongooseService.getInstance();  // password = password123
+})();
 
 const rootQuery = new GraphQLObjectType({
   name: "Query",
@@ -15,22 +20,12 @@ const rootQuery = new GraphQLObjectType({
   }
 });
 
-
-(async () => {
-  const mongoose = await MongooseService.getInstance();
-  mongoose.userService.createUser({
-    firstName: 'John',
-    lastName: 'Doe',
-    login: 'johndoe',
-    password: 'password123',
-    email: 'a@a.com',
-  })
-})();
 export const schema = new GraphQLSchema({ query: rootQuery });
 console.log('Dumping GraphQL schema :\n');
 console.log(printSchema(schema));
 
 var app = express();
+app.use(cors());
 app.use(
   '/graphql',
   graphqlHTTP({
@@ -44,5 +39,4 @@ app.use('/', (_, res) => {
 });
 app.listen(4000);
 console.log('Running a GraphQL API server at http://localhost:4000/graphql');
-
 

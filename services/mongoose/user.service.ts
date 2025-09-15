@@ -19,4 +19,12 @@ export class UserService {
     user.password = SecurityUtils.sha256(user.password);
     return this.userModel.create(user);
   }
+
+  findValidUser(login: string, password: string): Promise<IUser | null> {
+    const encryptPassword = SecurityUtils.sha256(password);
+    return this.userModel.findOne({
+        login: login,
+        password: encryptPassword,
+    });
+  }
 }
