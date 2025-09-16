@@ -1,11 +1,11 @@
 import { GraphQLEnumType, GraphQLList, GraphQLNonNull, GraphQLObjectType } from "graphql";
-import { GraphQLBoolean, GraphQLID, GraphQLString } from "graphql/type/scalars";
+import { GraphQLBoolean, GraphQLID, GraphQLInt, GraphQLString } from "graphql/type/scalars";
 
 const spaceTypeEnum = new GraphQLEnumType({
   name: "SpaceTypeEnum",
   values: {
     HOT: { value: "Hot" },
-    SAVANA: { value: "Savana" },
+    SAVANA: { value: "Savanna" },
     TAIGA: { value: "Taiga" },
     TUNDRA: { value: "Tundra" },
     MOUNTAIN: { value: "Mountain" },
@@ -17,18 +17,16 @@ const spaceTypeEnum = new GraphQLEnumType({
   }
 });
 
-export const spaceType = new GraphQLObjectType({
+export const SpaceAnswerType = new GraphQLObjectType({
   name: 'Space',
   fields: {
-    id: {
-      type: GraphQLID,
-    },
+    id: { type: GraphQLID,},
     name: { type: new GraphQLNonNull(GraphQLString) },
     description: { type: new GraphQLNonNull(GraphQLString) },
     images : { type : new GraphQLList(GraphQLString) },
     types : { type : new GraphQLList(spaceTypeEnum) },
-    openHours : { type: GraphQLString },
-    closeHours : { type: GraphQLString },
+    openingHours : { type: GraphQLInt },
+    closingHours : { type: GraphQLInt },
     disabled: { type: GraphQLBoolean },
     createdAt : { type: GraphQLString },
     updatedAt : { type: GraphQLString },

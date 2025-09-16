@@ -5,17 +5,19 @@ import {
   GraphQLSchema,
   printSchema,
 } from 'graphql';
-import { userFields } from './query/user';
+import { userFields,spacesField } from './query';
 import { MongooseService } from './services/mongoose/mongoose.service';
 import cors from 'cors';
 
 (async () => {
-  await MongooseService.getInstance();  // password = password123
+  const mongoose = await MongooseService.getInstance();  // password = password123
+  await mongoose.seedDb();
 })();
 
 const rootQuery = new GraphQLObjectType({
   name: "Query",
   fields: {
+    ...spacesField,
     ...userFields,
   }
 });
