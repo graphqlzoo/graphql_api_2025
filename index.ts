@@ -5,18 +5,18 @@ import {
   GraphQLSchema,
   printSchema,
 } from 'graphql';
-import { humanFields } from './query/human';
-import { wookieesFields } from './query/wookiees';
-import { planetFields } from './query/planet';
-import { filmFields } from './query/film';
+import { userFields } from './query/user';
+import { MongooseService } from './services/mongoose/mongoose.service';
+import cors from 'cors';
+
+(async () => {
+  await MongooseService.getInstance();  // password = password123
+})();
 
 const rootQuery = new GraphQLObjectType({
   name: "Query",
   fields: {
-    ...wookieesFields,
-    ...humanFields,
-    ...planetFields,
-    ...filmFields,
+    ...userFields,
   }
 });
 
@@ -25,6 +25,7 @@ console.log('Dumping GraphQL schema :\n');
 console.log(printSchema(schema));
 
 var app = express();
+app.use(cors());
 app.use(
   '/graphql',
   graphqlHTTP({
@@ -38,5 +39,4 @@ app.use('/', (_, res) => {
 });
 app.listen(4000);
 console.log('Running a GraphQL API server at http://localhost:4000/graphql');
-
 
