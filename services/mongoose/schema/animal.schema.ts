@@ -16,7 +16,7 @@ export interface IAnimal{
 export const animalSchema = new Schema<IAnimal>({
     space: {
         type: Schema.Types.ObjectId,
-        ref: "Habitat",
+        ref: "Space",
     },
     name: {
         type: String,

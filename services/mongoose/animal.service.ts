@@ -30,4 +30,12 @@ export class AnimalService {
         }
         return Promise.reject(new Error('Invalid space id'));
     }
+
+    animalById(id: string): Promise<IAnimal | null> {
+        if(isValidObjectId(id)) {
+            const filter: FilterQuery<IAnimal> = {_id: id};
+            return this.animalModel.findOne(filter).populate('space').populate('species');
+        }
+        return Promise.reject(new Error('Invalid animal id'));
+    }
 }

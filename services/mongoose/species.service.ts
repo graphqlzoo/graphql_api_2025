@@ -1,7 +1,6 @@
 import {Model} from "mongoose";
 import {MongooseService} from "./mongoose.service";
 import {ISpecies, speciesSchema} from "./schema";
-import { speciesDefaultDb } from "../../utils";
 
 export type ICreateSpecies = Omit<ISpecies, '_id' | 'createdAt' | 'updatedAt' | 'images'> & Partial<Pick<ISpecies, 'images'>>
 
