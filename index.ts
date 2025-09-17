@@ -5,7 +5,7 @@ import {
   GraphQLSchema,
   printSchema,
 } from 'graphql';
-import { userFields,spacesField,animalsField } from './query';
+import { userFields,spacesField,animalsField, billetsField } from './query';
 import { MongooseService } from './services/mongoose/mongoose.service';
 import cors from 'cors';
 
@@ -20,6 +20,7 @@ const rootQuery = new GraphQLObjectType({
     ...spacesField,
     ...userFields,
     ...animalsField,
+    ...billetsField
   }
 });
 
