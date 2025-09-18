@@ -1,4 +1,4 @@
-import { GraphQLObjectType, GraphQLID, GraphQLString, GraphQLInt, GraphQLBoolean, GraphQLEnumType, GraphQLList, GraphQLInputObjectType } from "graphql";
+import { GraphQLObjectType, GraphQLID, GraphQLString, GraphQLList, GraphQLInputObjectType } from "graphql";
 import { speciesType } from "./Species";
 import { SpaceAnswerType } from "./Space";
 

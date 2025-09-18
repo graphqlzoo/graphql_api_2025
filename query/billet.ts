@@ -10,14 +10,20 @@ export const billetsField: GraphQLFieldConfigMap<any, any> = {
       return await mongoose.billetService.getAllBillet();
     },
   },
+}
+
+export const billetsMutation: GraphQLFieldConfigMap<any, any> = {
   createBillet:{
     type: billetType,
     args:{
       input : { type : createBilletInputType}
     },
-    resolve: async ({input}) => {
+    resolve: async (parent,{input},context) => {
       const mongoose = await MongooseService.getInstance();
+      const userId = (context as any).user._id;
+      console.log(userId);
+      input.user = userId;
       return await mongoose.billetService.createBillet(input);
     }
-  }
+  },
 }
