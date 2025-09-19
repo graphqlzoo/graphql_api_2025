@@ -5,9 +5,10 @@ import {
   GraphQLSchema,
   printSchema,
 } from 'graphql';
-import { userFields,spacesField,animalsField } from './query';
+import { userFields,spacesField,animalsField, billetsField,billetsMutation } from './query';
 import { MongooseService } from './services/mongoose/mongoose.service';
 import cors from 'cors';
+import { buildContext } from './middleware/token';
 
 (async () => {
   const mongoose = await MongooseService.getInstance();  // password = password123
@@ -20,23 +21,45 @@ const rootQuery = new GraphQLObjectType({
     ...spacesField,
     ...userFields,
     ...animalsField,
+    ...billetsField
   }
 });
 
-export const schema = new GraphQLSchema({ query: rootQuery });
+const rootMutation = new GraphQLObjectType({
+  name: "Mutation",
+  fields: {
+    ...billetsMutation
+  }
+});
+
+export const schema = new GraphQLSchema({ 
+  query: rootQuery,
+  mutation : rootMutation
+});
 console.log('Dumping GraphQL schema :\n');
 console.log(printSchema(schema));
 
 var app = express();
+app.use(express.json());
 app.use(cors());
 app.use(
   '/graphql',
-  graphqlHTTP({
-    schema: schema,
-    context: null, // Call a middleware to parse token and get user info
-    graphiql: true
+   graphqlHTTP(async (req) => {
+    try {
+      // @ts-expect-error
+      const context = await buildContext(req);
+
+      return {
+        schema,
+        context,     
+        graphiql: true,
+      };
+    } catch (err) {
+      throw err;
+    }
   })
 );
+
 app.use('/', (_, res) => {
   res.redirect('/graphql');
 });

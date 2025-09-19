@@ -5,6 +5,7 @@ import { SpaceService } from './space.service';
 import { SpeciesService } from "./species.service";
 import { animalsDefaultForestDb,animalsDefaultSavannaDb,animalsDefaultMountainDb, spacesDefaultDb, speciesDefaultDb } from "../../utils";
 import { AnimalService } from "./animal.service";
+import { BilletService } from "./billet.service";
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ export class MongooseService {
     public spaceService: SpaceService;
     public speciesService: SpeciesService;
     public animalService: AnimalService;
+    public billetService: BilletService;
 
     private constructor(mongoose: Mongoose) {
         this.mongoose = mongoose;
@@ -23,6 +25,7 @@ export class MongooseService {
         this.spaceService = new SpaceService(this);
         this.speciesService = new SpeciesService(this);
         this.animalService = new AnimalService(this);
+        this.billetService = new BilletService(this);
     }
 
     public static async getInstance(): Promise<MongooseService> {

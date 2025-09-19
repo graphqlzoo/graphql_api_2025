@@ -27,4 +27,8 @@ export class UserService {
         password: encryptPassword,
     });
   }
+
+  getUserById(userId: string): Promise<IUser | null> {
+    return this.userModel.findById(userId).exec();
+  }
 }
