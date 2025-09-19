@@ -28,6 +28,7 @@ export const billetType = new GraphQLObjectType({
 export const createBilletInputType = new GraphQLInputObjectType({
   name: "CreateBilletInput",
   fields:{
+    id: { type: GraphQLID },
     firstNameOfBeneficiary: { type: GraphQLString },
     lastNameOfBeneficiary: { type: GraphQLString },
     price: { type: GraphQLFloat },

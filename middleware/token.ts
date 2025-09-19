@@ -31,7 +31,7 @@ const getFieldNamesFromQuery = (query: string) => {
 export const buildContext = async(req: express.Request) => {
   const token = (req.headers['authorization'] as string)?.split(' ')[1];
   const name = getFieldNamesFromQuery(req.body.query)[0];
-  console.log('GraphQL Request for %s', name);
+
   if (
     name === 'connection'
   ){
