@@ -1,5 +1,5 @@
 import { GraphQLFieldConfigMap } from "graphql";
-import { ConnectionAnswerType, ConnectionRequestInputType } from "../schema/User";
+import { ConnectionAnswerType, ConnectionRequestInputType, UserType } from "../schema/User";
 import { MongooseService } from "../services/mongoose";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
@@ -28,5 +28,13 @@ export const userFields: GraphQLFieldConfigMap<any, any> = {
       }
     },
   },
+  me: {
+  type: UserType,
+  resolve: async (_, __, { user }) => {
+    if (!user) throw new Error("Not authenticated");
+    return user; // récupéré dans buildContext
+  },
+},
+
   
 }

@@ -28,6 +28,15 @@ export class UserService {
     });
   }
 
+  async updateUserEmail(userId: string, newEmail: string) {
+  return this.userModel.findByIdAndUpdate(
+    userId,
+    { email: newEmail },
+    { new: true } 
+  ).exec();
+}
+
+
   findByLoginOrEmail(login: string, email: string) {
   return this.userModel.findOne({
     $or: [{ login }, { email }]
