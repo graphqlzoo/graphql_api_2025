@@ -1,5 +1,5 @@
-import { GraphQLFieldConfigMap } from "graphql";
-import { ConnectionAnswerType, RegisterInputType } from "../schema/User";
+import { GraphQLFieldConfigMap, GraphQLNonNull, GraphQLString } from "graphql";
+import { ConnectionAnswerType, RegisterInputType, UserType } from "../schema/User";
 import { MongooseService } from "../services/mongoose";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
@@ -35,6 +35,29 @@ export const userMutations: GraphQLFieldConfigMap<any, any> = {
       );
 
       return { token, error: null };
+    }
+  },
+
+  updateEmail: {
+    type: UserType,
+    args: {
+      newEmail: { type: GraphQLNonNull(GraphQLString) }
+    },
+    resolve: async (_, { newEmail }, context) => {
+      if (!context.user) {
+        throw new Error("Unauthorized");
+      }
+
+      const mongoose = await MongooseService.getInstance();
+
+      const existing = await mongoose.userService.findByLoginOrEmail("", newEmail);
+      if (existing) {
+        throw new Error("Email already in use");
+      }
+
+      const updatedUser = await mongoose.userService.updateUserEmail(context.user._id, newEmail);
+
+      return updatedUser;
     }
   }
 };
