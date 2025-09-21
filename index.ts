@@ -10,6 +10,8 @@ import { MongooseService } from './services/mongoose/mongoose.service';
 import cors from 'cors';
 import { buildContext } from './middleware/token';
 import { userMutations } from './mutations/user';
+import { spectacleField } from './query/spectacle';
+import { spectacleMutations } from './mutations/spectacle';
 
 (async () => {
   const mongoose = await MongooseService.getInstance();  // password = password123
@@ -22,6 +24,7 @@ const rootQuery = new GraphQLObjectType({
     ...spacesField,
     ...userFields,
     ...animalsField,
+    ...spectacleField,
     ...billetsField
   }
 });
@@ -30,7 +33,8 @@ const rootMutation = new GraphQLObjectType({
   name: "Mutation",
   fields: {
     ...billetsMutation,
-    ...userMutations
+    ...userMutations,
+    ...spectacleMutations
   }
 });
 
