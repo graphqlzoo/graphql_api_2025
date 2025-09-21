@@ -28,6 +28,13 @@ export class UserService {
     });
   }
 
+  findByLoginOrEmail(login: string, email: string) {
+  return this.userModel.findOne({
+    $or: [{ login }, { email }]
+  }).exec();
+  }
+
+
   getUserById(userId: string): Promise<IUser | null> {
     return this.userModel.findById(userId).exec();
   }

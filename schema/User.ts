@@ -27,3 +27,14 @@ export const ConnectionRequestInputType  = new GraphQLInputObjectType({
     password: { type: GraphQLString },
   },
 });
+
+export const RegisterInputType = new GraphQLInputObjectType({
+  name: "RegisterInput",
+  fields: {
+    firstName: { type: GraphQLString },
+    lastName: { type: GraphQLString },
+    email: { type: GraphQLString },
+    login: { type: GraphQLString },
+    password: { type: GraphQLString },
+  },
+});

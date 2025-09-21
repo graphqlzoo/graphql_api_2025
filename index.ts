@@ -9,6 +9,7 @@ import { userFields,spacesField,animalsField, billetsField,billetsMutation } fro
 import { MongooseService } from './services/mongoose/mongoose.service';
 import cors from 'cors';
 import { buildContext } from './middleware/token';
+import { userMutations } from './mutations/user';
 
 (async () => {
   const mongoose = await MongooseService.getInstance();  // password = password123
@@ -28,7 +29,8 @@ const rootQuery = new GraphQLObjectType({
 const rootMutation = new GraphQLObjectType({
   name: "Mutation",
   fields: {
-    ...billetsMutation
+    ...billetsMutation,
+    ...userMutations
   }
 });
 
